@@ -7,6 +7,7 @@ export interface IComunidade {
   liderComunidade: string;
   atividadesProdutos: string;
   contato?: string;
+  redesocial?: string;
   latitude?: number;
   longitude?: number;
   dataRegistro: Date;

@@ -73,13 +73,13 @@ export default function MapaPage() {
 
   return (
     <BackgroundWrapper type="internal">
-      <div className="h-full w-full p-4">
-        <div className="h-full rounded-xl overflow-hidden shadow-2xl border-4 border-white">
+      <div className="h-full w-full">
+        <div className="h-full overflow-hidden shadow-2xl">
           <MapContainer
             center={defaultCenter}
             zoom={defaultZoom}
-            style={{ height: '100%', width: '100%' }}
-          >
+            style={{ height: '94%', width: '100%' }}>
+            
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -104,9 +104,10 @@ export default function MapaPage() {
                   <Popup>
                     <div className="text-sm">
                       <h3 className="font-bold">{com.nomeComunidade}</h3>
-                      <p>{com.tipoComunidade}</p>
-                      <p>{com.localizacao}</p>
+                      <p>Tipo: {com.tipoComunidade}</p>
+                      <p>Localização: {com.localizacao}</p>
                       {com.contato && <p>📧 {com.contato}</p>}
+                      {com.redesocial && <p>🌐 {com.redesocial}</p>}
                     </div>
                   </Popup>
                 </Marker>

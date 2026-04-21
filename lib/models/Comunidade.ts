@@ -1,4 +1,4 @@
-import mongoose, { Schema, models, model } from 'mongoose';
+import { Schema, models, model } from 'mongoose';
 import { IComunidade } from '@/types/comunidade';
 
 const ComunidadeSchema = new Schema<IComunidade>({
@@ -13,6 +13,7 @@ const ComunidadeSchema = new Schema<IComunidade>({
   liderComunidade: { type: String, required: true },
   atividadesProdutos: { type: String, required: true },
   contato: { type: String },
+  redesocial: { type: String },
   latitude: { type: Number },
   longitude: { type: Number },
   dataRegistro: { type: Date, default: Date.now },

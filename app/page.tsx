@@ -5,11 +5,11 @@ export default async function Home() {
   let total = 0;
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
+      ? `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : 'http://localhost:3000';
 
-    const res = await fetch(`${baseUrl}/api/comunidades`, {
+    const res = await fetch(`${baseUrl ?? 'http://localhost:3000' }/api/comunidades`, {
       cache: 'no-store',
     });
 
@@ -23,8 +23,8 @@ export default async function Home() {
 
   return (
     <BackgroundWrapper type="home">
-      <div className="flex flex-col items-center justify-center h-full text-white px-4 bg-black/30">
-        <h1 className="text-7xl md:text-8xl text-center font-extrabold drop-shadow-lg mt-20">
+      <div className="flex flex-col items-center justify-center h-full text-white bg-black/30">
+        <h1 className="text-7xl md:text-8xl text-center font-extrabold drop-shadow-lg">
           MAPEIA BAHIA
         </h1>
         <h2 className="text-2xl md:text-5xl text-center font-semibold drop-shadow mt-2">
@@ -49,7 +49,7 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="mt-16 md:mt-24 bg-white/80 text-[#2d5a27] p-6 rounded-lg shadow-xl text-center min-w-[200px]">
+        <div className="mt-10 md:mt-15 bg-white/80 text-[#2d5a27] p-6 rounded-lg shadow-xl text-center min-w-[200px]">
           <span className="text-5xl font-bold block">{total}</span>
           <span className="text-xl uppercase tracking-wider">Comunidades</span>
           <p className="mt-2 text-sm">Quilombolas & Pesqueiras</p>
