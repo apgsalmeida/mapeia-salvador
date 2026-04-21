@@ -1,15 +1,18 @@
 import BackgroundWrapper from '@/components/BackgroundWrapper';
 import Link from 'next/link';
+import { headers } from 'next/headers';
 
 export default async function Home() {
   let total = 0;
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
-      ? `http://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : 'http://localhost:3000';
+    // Obtém o host da requisição atual (disponível em Server Components)
+    const headersList = headers();
+    const host = (await headersList).get('host') || 'localhost:3000';
+    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
 
-    const res = await fetch(`${baseUrl ?? 'http://localhost:3000' }/api/comunidades`, {
+    const res = await fetch(`${baseUrl}/api/comunidades`, {
       cache: 'no-store',
     });
 

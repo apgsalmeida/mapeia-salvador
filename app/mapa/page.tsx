@@ -78,7 +78,7 @@ export default function MapaPage() {
           <MapContainer
             center={defaultCenter}
             zoom={defaultZoom}
-            style={{ height: '94%', width: '100%' }}>
+            style={{ height: '100%', width: '100%' }}>
             
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
