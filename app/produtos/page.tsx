@@ -51,7 +51,7 @@ export default function ProdutosPage() {
 
   return (
     <BackgroundWrapper type="internal">
-      <div className="max-w-6xl mx-auto my-10 p-6 md:p-8 bg-white/85 rounded-xl shadow-2xl backdrop-blur-sm">
+      <div className="max-w-6xl my-10 p-6 md:p-8 bg-white/85 rounded-xl mx-2 shadow-2xl backdrop-blur-sm">
         <h1 className="text-2xl md:text-3xl font-bold text-center text-[#2d5a27] uppercase mb-6 border-b border-[#2d5a27]/20 pb-4">
           Comunidades Cadastradas
         </h1>
@@ -102,7 +102,7 @@ export default function ProdutosPage() {
                         ))}
                       </select>
                     </th>
-                    <th className="px-4 py-3 text-left text-sm uppercase tracking-wider">
+                    <th className="px-4 py-3 hidden md:table-cell text-left text-sm uppercase tracking-wider">
                       Localização
                       <input
                         type="text"
@@ -116,17 +116,12 @@ export default function ProdutosPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {comunidadesFiltradas.map(com => (
-                    <tr key={com._id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3">
-                        <button
-                          onClick={() => openModal(com)}
-                          className="text-[#2d5a27] font-semibold hover:underline text-left"
-                        >
-                          {com.nomeComunidade}
-                        </button>
+                    <tr key={com._id} className="hover:bg-gray-300 even:bg-gray-100">
+                      <td className="px-4 py-3 cursor-pointer font-semibold hover:underline" onClick={() => openModal(com)}>
+                        {com.nomeComunidade}
                       </td>
                       <td className="px-4 py-3 text-gray-700">{com.tipoComunidade}</td>
-                      <td className="px-4 py-3 text-gray-700">{com.localizacao}</td>
+                      <td className="px-4 py-3 hidden md:table-cell  text-gray-700">{com.localizacao}</td>
                     </tr>
                   ))}
                 </tbody>
