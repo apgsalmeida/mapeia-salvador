@@ -23,7 +23,7 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="bg-[#2d5a27] py-3 px-4 md:px-8 shadow-lg shrink-0 z-50 relative">
+    <header className="bg-[#2d5a27] py-3 z-1000 px-4 md:px-8 shadow-lg shrink-0 relative">
       <div className="max-w-7xl mx-auto flex items-center justify-between md:justify-center">
         {/* Logo (centralizada junto com o menu em telas grandes) */}
         <Link href="/" className="flex items-center md:mr-8" onClick={closeMenu}>
