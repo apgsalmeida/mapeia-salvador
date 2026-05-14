@@ -52,11 +52,11 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="mt-10 md:mt-15 bg-white/80 text-[#2d5a27] p-6 rounded-lg shadow-xl text-center min-w-[200px]">
+        <Link href="/produtos" className="mt-10 md:mt-15 bg-white/80 text-[#2d5a27] p-6 rounded-lg shadow-xl text-center min-w-[200px]">
           <span className="text-5xl font-bold block">{total}</span>
           <span className="text-xl uppercase tracking-wider">Comunidades</span>
           <p className="mt-2 text-sm">Quilombolas & Pesqueiras</p>
-        </div>
+        </Link>
       </div>
     </BackgroundWrapper>
   );
