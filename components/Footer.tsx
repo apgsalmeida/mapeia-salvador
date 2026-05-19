@@ -14,6 +14,9 @@ export default function Footer() {
           <span className="text-center md:mx-10 text-xs leading-relaxed w-100">
             <span className="font-bold">Ana Paula</span> - Desenvolvimento Web
           </span>
+          <span className="text-center md:mx-10 text-xs leading-relaxed w-100">
+            <span className="font-bold">Prof. Dra. Ana Angélica Trindade</span> - Orientadora
+          </span>
           <span className="text-center hidden md:block text-xs leading-relaxed shrink-0">
             © {currentYear} - Todos os direitos reservados
           </span>
