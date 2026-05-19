@@ -8,9 +8,9 @@ export default function ContatoPage() {
           Fale com o Mapeia Bahia
         </h1>
         <br></br>
-        <h2>💡 Para informações, sugestões, parcerias ou feedbacks.</h2>
+        <h2 className="text-wrap">Para informações, sugestões, parcerias ou feedbacks.</h2>
         <br></br>
-        <h2>📩 E-mail para contato: <a className="underline" href="mailto:mapeiabahia@gmail.com">mapeiabahia@gmail.com</a></h2>
+        <h2 className="font-bold">E-mail para contato: <a className="underline" href="mailto:mapeiabahia@gmail.com">mapeiabahia@gmail.com</a></h2>
       </div>
     </BackgroundWrapper>
   );
