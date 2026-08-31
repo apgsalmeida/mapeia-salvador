@@ -12,7 +12,7 @@ export default function BackgroundWrapper({ children, type }: BackgroundWrapperP
       : "bg-[url('/folhas.png')] bg-cover bg-center bg-no-repeat";
 
   return (
-    <div className={`grow w-full ${bgClass}`}>
+    <div className={`grow overflow-y-auto w-full ${bgClass} `}>
       {children}
     </div>
   );

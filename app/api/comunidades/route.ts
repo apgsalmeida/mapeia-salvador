@@ -8,7 +8,8 @@ export async function GET() {
     const comunidades = await Comunidade.find({}).sort({ dataRegistro: -1 }).lean();
     return NextResponse.json(comunidades);
   } catch (error) {
-    return NextResponse.json({ error: 'Erro ao buscar comunidades' }, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Erro ao buscar comunidades';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -29,7 +30,8 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(novaComunidade, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Erro ao criar comunidade';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

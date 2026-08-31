@@ -1,6 +1,6 @@
 {
-  "name": "mapeia-salvador",
-  "version": "0.1.1",
+  "name": "mapeia-bahia",
+  "version": "0.1.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,13 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sentry/nextjs": "^10.73.0",
     "@vercel/analytics": "^2.0.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.8.0",
     "mongoose": "^9.4.1",
-    "next": "16.2.4",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "next": "^16.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
