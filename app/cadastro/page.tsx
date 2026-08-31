@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import BackgroundWrapper from '@/components/BackgroundWrapper';
 import TermsModal from '@/components/TermsModal';
 import { MapPin, Loader2 } from 'lucide-react';
+import { createComunidade } from '@/app/actions/comunidade'; // 👈 importa a action
+import { IComunidade } from '@/types/comunidade';
 
 export default function CadastroPage() {
   const router = useRouter();
@@ -52,21 +54,13 @@ export default function CadastroPage() {
         longitude: formData.longitude ? Number(formData.longitude) : undefined,
       };
 
-      const res = await fetch('/api/comunidades', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Erro ao cadastrar');
-      }
+      // Chama a Server Action (roda no servidor, tem acesso à API_KEY se necessário)
+      await createComunidade(payload as IComunidade);
 
       alert('Cadastro realizado com sucesso!');
       router.push('/produtos');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao cadastrar');
     } finally {
       setLoading(false);
     }

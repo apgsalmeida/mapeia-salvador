@@ -5,6 +5,7 @@ import BackgroundWrapper from '@/components/BackgroundWrapper';
 import ComunidadeModal from '@/components/ComunidadeModal';
 import { IComunidade } from '@/types/comunidade';
 import { Search } from 'lucide-react';
+import { getComunidades } from '@/app/actions/comunidade'; // 👈 importa a ação
 
 export default function ProdutosPage() {
   const [comunidades, setComunidades] = useState<IComunidade[]>([]);
@@ -16,8 +17,8 @@ export default function ProdutosPage() {
   const [selectedComunidade, setSelectedComunidade] = useState<IComunidade | null>(null);
 
   useEffect(() => {
-    fetch('/api/comunidades')
-      .then(res => res.json())
+    // Chama a Server Action (roda no servidor, tem acesso à API_KEY)
+    getComunidades()
       .then(data => {
         setComunidades(data);
         setLoading(false);
@@ -32,9 +33,8 @@ export default function ProdutosPage() {
   const tiposUnicos = useMemo(() => {
     if (comunidades.length > 0) {
       const tipos = new Set(comunidades.map(c => c.tipoComunidade));
-      return Array.from(tipos).sort();  
-    } else 
-    {
+      return Array.from(tipos).sort();
+    } else {
       return [];
     }
   }, [comunidades]);
@@ -42,13 +42,14 @@ export default function ProdutosPage() {
   // Filtragem combinada
   const comunidadesFiltradas = useMemo(() => {
     if (comunidades.length > 0) {
-      return comunidades?.filter(com => {
+      return comunidades.filter(com => {
         const matchNome = com.nomeComunidade.toLowerCase().includes(filtroNome.toLowerCase());
         const matchTipo = filtroTipo === '' || com.tipoComunidade === filtroTipo;
         const matchLoc = com.localizacao.toLowerCase().includes(filtroLocalizacao.toLowerCase());
         return matchNome && matchTipo && matchLoc;
       });
     }
+    return [];
   }, [comunidades, filtroNome, filtroTipo, filtroLocalizacao]);
 
   const openModal = (comunidade: IComunidade) => {
@@ -122,20 +123,20 @@ export default function ProdutosPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {comunidadesFiltradas?.map(com => (
+                  {comunidadesFiltradas.map(com => (
                     <tr key={com._id} className="hover:bg-gray-300 even:bg-gray-100">
                       <td className="px-4 py-3 cursor-pointer font-semibold hover:underline" onClick={() => openModal(com)}>
                         {com.nomeComunidade}
                       </td>
                       <td className="px-4 py-3 text-gray-700">{com.tipoComunidade}</td>
-                      <td className="px-4 py-3 hidden md:table-cell  text-gray-700">{com.localizacao}</td>
+                      <td className="px-4 py-3 hidden md:table-cell text-gray-700">{com.localizacao}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            {comunidadesFiltradas?.length === 0 && (
+            {comunidadesFiltradas.length === 0 && (
               <p className="text-center text-gray-500 mt-4">Nenhum resultado encontrado.</p>
             )}
           </>
