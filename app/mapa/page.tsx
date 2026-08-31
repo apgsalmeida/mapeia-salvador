@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import BackgroundWrapper from '@/components/BackgroundWrapper';
 import { IComunidade } from '@/types/comunidade';
+import { getComunidades } from '@/app/actions/comunidade'; // 👈 importa a action
 import 'leaflet/dist/leaflet.css';
+
+type LeafletModule = typeof import('leaflet');
 
 // Importação dinâmica para evitar SSR do Leaflet
 const MapContainer = dynamic(
@@ -32,7 +35,7 @@ const shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png
 export default function MapaPage() {
   const [comunidades, setComunidades] = useState<IComunidade[]>([]);
   const [loading, setLoading] = useState(true);
-  const [L, setL] = useState<any>(null);
+  const [L, setL] = useState<LeafletModule>();
 
   useEffect(() => {
     // Carrega Leaflet apenas no cliente
@@ -40,8 +43,8 @@ export default function MapaPage() {
       setL(leaflet);
     });
 
-    fetch('/api/comunidades')
-      .then((res) => res.json())
+    // Chama a Server Action para buscar as comunidades
+    getComunidades()
       .then((data) => {
         setComunidades(data);
         setLoading(false);
@@ -67,9 +70,9 @@ export default function MapaPage() {
   const defaultZoom = 11;
 
   // Filtra comunidades com coordenadas válidas
-  const comunidadesComCoords = comunidades.length > 0 ? comunidades?.filter(
+  const comunidadesComCoords = comunidades.filter(
     (c) => c.latitude && c.longitude
-  ) : [];
+  );
 
   return (
     <BackgroundWrapper type="internal">
@@ -78,13 +81,13 @@ export default function MapaPage() {
           <MapContainer
             center={defaultCenter}
             zoom={defaultZoom}
-            style={{ height: '100%', width: '100%' }}>
-            
+            style={{ height: '100%', width: '100%' }}
+          >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {comunidadesComCoords?.map((com) => {
+            {comunidadesComCoords.map((com) => {
               const icon = L.icon({
                 iconUrl,
                 iconRetinaUrl,

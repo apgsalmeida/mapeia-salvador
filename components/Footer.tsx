@@ -2,6 +2,7 @@
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const version = process.env.NEXT_PUBLIC_APP_VERSION;
 
   return (
     <footer className="bg-[#2d5a27] text-white w-full mt-auto z-1000">
@@ -19,7 +20,7 @@ export default function Footer() {
             <span className="font-bold">Prof. Dra. Ana Angélica Trindade</span> - Orientadora
           </span>
           <span className="text-center hidden md:block text-xs leading-relaxed shrink-0">
-            © {currentYear} - Todos os direitos reservados
+            © {currentYear} - Todos os direitos reservados - versão: {version}
           </span>
         </p>
       </div>

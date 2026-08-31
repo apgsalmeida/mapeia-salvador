@@ -1,7 +1,11 @@
 import { withSentryConfig } from "@sentry/nextjs/config";
 import type { NextConfig } from "next";
+import packageJson from './package.json';
 
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_APP_VERSION: packageJson.version,
+  },
   reactStrictMode: true,
   allowedDevOrigins: ['192.168.15.28'],
 };

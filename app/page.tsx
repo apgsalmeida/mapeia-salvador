@@ -1,25 +1,14 @@
 import BackgroundWrapper from '@/components/BackgroundWrapper';
 import Link from 'next/link';
-import { headers } from 'next/headers';
+import { getComunidades } from '@/app/actions/comunidade'; // 👈 importa a Server Action
 
 export default async function Home() {
   let total = 0;
 
   try {
-    // Obtém o host da requisição atual (disponível em Server Components)
-    const headersList = headers();
-    const host = (await headersList).get('host') || 'localhost:3000';
-    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-    const baseUrl = `${protocol}://${host}`;
-
-    const res = await fetch(`${baseUrl}/api/comunidades`, {
-      cache: 'no-store',
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      total = Array.isArray(data) ? data.length : 0;
-    }
+    // Chama a Server Action diretamente (roda no servidor)
+    const comunidades = await getComunidades();
+    total = comunidades.length;
   } catch (error) {
     console.error('Erro ao buscar total de comunidades:', error);
   }
@@ -52,7 +41,7 @@ export default async function Home() {
           </Link>
         </div>
 
-        <Link href="/produtos" className="mt-10 md:mt-15 bg-white/80 text-[#2d5a27] p-6 rounded-lg shadow-xl text-center min-w-[200px]">
+        <Link href="/produtos" className="mt-10 md:mt-15 bg-white/80 text-[#2d5a27] p-6 rounded-lg shadow-xl text-center min-w-50">
           <span className="text-5xl font-bold block">{total}</span>
           <span className="text-xl uppercase tracking-wider">Comunidades</span>
           <p className="mt-2 text-sm">Quilombolas & Pesqueiras</p>
