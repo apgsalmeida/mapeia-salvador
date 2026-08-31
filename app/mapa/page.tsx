@@ -67,9 +67,9 @@ export default function MapaPage() {
   const defaultZoom = 11;
 
   // Filtra comunidades com coordenadas válidas
-  const comunidadesComCoords = comunidades.filter(
+  const comunidadesComCoords = comunidades.length > 0 ? comunidades?.filter(
     (c) => c.latitude && c.longitude
-  );
+  ) : [];
 
   return (
     <BackgroundWrapper type="internal">
@@ -84,7 +84,7 @@ export default function MapaPage() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {comunidadesComCoords.map((com) => {
+            {comunidadesComCoords?.map((com) => {
               const icon = L.icon({
                 iconUrl,
                 iconRetinaUrl,

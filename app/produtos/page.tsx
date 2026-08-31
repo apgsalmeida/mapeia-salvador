@@ -30,18 +30,25 @@ export default function ProdutosPage() {
 
   // Lista de tipos únicos para o select
   const tiposUnicos = useMemo(() => {
-    const tipos = new Set(comunidades.map(c => c.tipoComunidade));
-    return Array.from(tipos).sort();
+    if (comunidades.length > 0) {
+      const tipos = new Set(comunidades.map(c => c.tipoComunidade));
+      return Array.from(tipos).sort();  
+    } else 
+    {
+      return [];
+    }
   }, [comunidades]);
 
   // Filtragem combinada
   const comunidadesFiltradas = useMemo(() => {
-    return comunidades.filter(com => {
-      const matchNome = com.nomeComunidade.toLowerCase().includes(filtroNome.toLowerCase());
-      const matchTipo = filtroTipo === '' || com.tipoComunidade === filtroTipo;
-      const matchLoc = com.localizacao.toLowerCase().includes(filtroLocalizacao.toLowerCase());
-      return matchNome && matchTipo && matchLoc;
-    });
+    if (comunidades.length > 0) {
+      return comunidades?.filter(com => {
+        const matchNome = com.nomeComunidade.toLowerCase().includes(filtroNome.toLowerCase());
+        const matchTipo = filtroTipo === '' || com.tipoComunidade === filtroTipo;
+        const matchLoc = com.localizacao.toLowerCase().includes(filtroLocalizacao.toLowerCase());
+        return matchNome && matchTipo && matchLoc;
+      });
+    }
   }, [comunidades, filtroNome, filtroTipo, filtroLocalizacao]);
 
   const openModal = (comunidade: IComunidade) => {
@@ -51,7 +58,7 @@ export default function ProdutosPage() {
 
   return (
     <BackgroundWrapper type="internal">
-      <div className="max-w-6xl my-10 p-6 md:p-8 bg-white/85 rounded-xl mx-2 shadow-2xl backdrop-blur-sm">
+      <div className="max-w-6xl mx-auto my-10 p-6 md:p-8 bg-white/85 rounded-xl shadow-2xl backdrop-blur-sm">
         <h1 className="text-2xl md:text-3xl font-bold text-center text-[#2d5a27] uppercase mb-6 border-b border-[#2d5a27]/20 pb-4">
           Comunidades Cadastradas
         </h1>
@@ -115,7 +122,7 @@ export default function ProdutosPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {comunidadesFiltradas.map(com => (
+                  {comunidadesFiltradas?.map(com => (
                     <tr key={com._id} className="hover:bg-gray-300 even:bg-gray-100">
                       <td className="px-4 py-3 cursor-pointer font-semibold hover:underline" onClick={() => openModal(com)}>
                         {com.nomeComunidade}
@@ -128,7 +135,7 @@ export default function ProdutosPage() {
               </table>
             </div>
 
-            {comunidadesFiltradas.length === 0 && (
+            {comunidadesFiltradas?.length === 0 && (
               <p className="text-center text-gray-500 mt-4">Nenhum resultado encontrado.</p>
             )}
           </>
