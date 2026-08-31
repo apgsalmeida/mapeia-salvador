@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${inter.className} flex flex-col min-h-screen overflow-hidden`}>
+        <SpeedInsights/>
         <RootLayoutClient>{children}</RootLayoutClient>
         <SpeedInsights />
       </body>
